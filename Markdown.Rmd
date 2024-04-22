@@ -1,0 +1,186 @@
+---
+title: "Art-Science Interplay"
+author: "Joanne Berry-Frith"
+output: slidy_presentation
+css: "bootstrap.css"
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Artist's statement
+
+I have been working as an artist for over thirty years. I am fascinated by light, colour, lasers, technology and science. My initial curiosity in how artists can work with scientists was piqued in 1998 when I became aware of the SciArt scheme. The ethos of the SciArt scheme encouraged me, as an artist, to seek out Life Scientists to collaborate with because the methods we employ to create images are connected. We both use laser technology (I make laser-cut lightboxes), which requires knowledge of light, optics, and computer visualisation methods and I am fascinated by how I can use scientific image data innovatively. As a result, since 2010, a central part of my practice has involved contributing to scientific research projects as one of the research team.
+
+I identified a gap in knowledge while working with scientists in labs. There was a lack of understanding between the two disciplines of approaches to imaging and its potential. I wanted to discover if and how an artist-researcher can contribute to new methods of interdisciplinary approaches in advanced imaging and microscopy through collaborative practice. Over the last ten years I have collaborated with Advanced imaging and Microscopy specialists, working with a network of internationally renowned core imaging laboratories in the field of Life Science. My aim is to dismantle silo mentalities so that artist-researchers can collaborate with scientists to create new representations, insights and behavioural change. I implemented a four-stage framework and protocol underpinned by the inclusion of play. Each element helped me negotiate and interpret art and science collaboration in new ways by extending art and scientific methods of visualisation. This led to non-standard representations, technological advancements, and better intellectual and visualisation skills, hence enhancing practice-based research through collaboration. Each element helped me negotiate and interpret art and science collaboration in new ways by extending art and scientific methods of visualisation. I advanced three methods of production: an introspective, digital drawing method using limited tools; data montages where data and documentary footage are explored; and experimental moving image work, integrating documentary film footage and sound. 
+
+## Art-Science Interplay
+
+```{r Shiny Picture, message=FALSE, warning=FALSE}
+library(shiny)
+library(magick)
+library(httr)
+
+shinyApp(
+  ui = fluidPage(
+    sidebarLayout(
+      sidebarPanel(
+        sliderInput("rotate",
+                    label = "Rotate",
+                    min = 0,
+                    max = 360,
+                    value = 0),
+        sliderInput("blur",
+                    label = "Blur",
+                    min = 0,
+                    max = 20,
+                    value = 0),
+        sliderInput("implode",
+                    label = "Implode",
+                    min = -1,
+                    max = 1,
+                    value = 0,
+                    step = 0.01)
+      ),
+      mainPanel(tabsetPanel(
+        tabPanel("Image 1", 
+                 imageOutput("picture1", height = "auto"),
+                 textOutput("text1")
+        ),
+        tabPanel("Image 2", 
+                 imageOutput("picture2", height = "auto"),
+                 textOutput("text2")
+        ),
+        tabPanel("Image 3", 
+                 imageOutput("picture3", height = "auto"),
+                 textOutput("text3")
+        ),
+        tabPanel("Image 4", 
+                 imageOutput("picture4", height = "auto"),
+                 textOutput("text4")
+        ),
+        tabPanel("Image 5", 
+                 imageOutput("picture5", height = "auto"),
+                 textOutput("text5")
+        )
+      )
+      )
+    )
+  ),
+  server = function(input, output){
+    api_key <- Sys.getenv("API_KEY")
+    # Function to download image with authorization header
+    download_image <- function(url, header){
+      response <- GET(url, add_headers("Authorization" = header))
+      if (response$status_code == 200) {
+        content_type <- headers(response)$`content-type`
+        image <- image_read(response$content, format = content_type)
+        return(image)
+      } else {
+        return(NULL)
+      }
+    }
+
+    # PICTURE 1
+    output$picture1 <- renderImage({
+      picture1 <- download_image("https://repository.lboro.ac.uk/ndownloader/files/44908990/preview/44908990/preview.jpg", api_key)
+      if (!is.null(picture1)) {
+        temp_frame <- picture1 %>%
+          image_rotate(input$rotate) %>%
+          image_blur(input$blur, input$blur) %>%
+          image_implode(input$implode)
+         # Generate a temporary file name
+      temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
+      # Convert the manipulated image to a format that can be rendered
+      image_write(temp_frame, path = temp_file)
+      list(src = temp_file,
+           contentType = 'image/jpeg',
+           width = '100%')
+    }
+  })
+}
+    output$text1 <- renderText({
+      paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    })
+
+    # PICTURE 2
+    output$picture2 <- renderImage({
+      picture2 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908999/preview/44908999/preview.jpg")
+      temp_frame <- picture2 %>%
+        image_rotate(input$rotate) %>%
+        image_blur(input$blur, input$blur) %>%
+        image_implode(input$implode)
+      # Convert the manipulated image to a format that can be rendered
+      temp_file <- tempfile(fileext='.jpg')
+      image_write(temp_frame, temp_file)
+      list(src = temp_file,
+           contentType = 'image/jpeg',
+           width = '100%')
+    })
+    output$text2 <- renderText({
+      paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    })
+
+    # PICTURE 3
+    output$picture3 <- renderImage({
+      picture3 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908975/preview/44908975/preview.jpg")
+      temp_frame <- picture3 %>%
+        image_rotate(input$rotate) %>%
+        image_blur(input$blur, input$blur) %>%
+        image_implode(input$implode)
+      # Convert the manipulated image to a format that can be rendered
+      temp_file <- tempfile(fileext='.jpg')
+      image_write(temp_frame, temp_file)
+      list(src = temp_file,
+           contentType = 'image/jpeg',
+           width = '100%')
+    })
+    output$text3 <- renderText({
+      paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    })
+
+    # PICTURE 4
+    output$picture4 <- renderImage({
+      picture4 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908981/preview/44908981/preview.jpg")
+      temp_frame <- picture4 %>%
+        image_rotate(input$rotate) %>%
+        image_blur(input$blur, input$blur) %>%
+        image_implode(input$implode)
+      # Convert the manipulated image to a format that can be rendered
+      temp_file <- tempfile(fileext='.jpg')
+      image_write(temp_frame, temp_file)
+      list(src = temp_file,
+           contentType = 'image/jpeg',
+           width = '100%')
+    })
+    output$text4 <- renderText({
+      paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    })
+
+    # PICTURE 5
+    output$picture5 <- renderImage({
+      picture5 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908987/preview/44908987/preview.jpg")
+      temp_frame <- picture5 %>%
+        image_rotate(input$rotate) %>%
+        image_blur(input$blur, input$blur) %>%
+        image_implode(input$implode)
+      # Convert the manipulated image to a format that can be rendered
+      temp_file <- tempfile(fileext='.jpg')
+      image_write(temp_frame, temp_file)
+      list(src = temp_file,
+           contentType = 'image/jpeg',
+           width = '100%')
+    })
+
+    output$text5 <- renderText({
+      paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    })
+  })
+
+```
+
+## About this virtual exhibition
+
+This virtual exhibition seeks to showcase qualitative material in an interactive way. It was created in R, with the [Shiny](https://www.rstudio.com/products/shiny/) and [Magick](https://cran.r-project.org/web/packages/magick/) packages. Funding was received from Arts Council England under the [Develop Your Creative Practice scheme](https://www.artscouncil.org.uk/dycp). Created by Lara Skelly, Loughborough University.
