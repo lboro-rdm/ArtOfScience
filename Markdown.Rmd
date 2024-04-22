@@ -21,7 +21,6 @@ I identified a gap in knowledge while working with scientists in labs. There was
 ```{r Shiny Picture, message=FALSE, warning=FALSE}
 library(shiny)
 library(magick)
-library(httr)
 
 shinyApp(
   ui = fluidPage(
@@ -65,46 +64,28 @@ shinyApp(
                  imageOutput("picture5", height = "auto"),
                  textOutput("text5")
         )
-      )
-      )
+      ))
     )
   ),
-  server = function(input, output){
-    api_key <- Sys.getenv("API_KEY")
-    # Function to download image with authorization header
-    download_image <- function(url, header){
-      response <- GET(url, add_headers("Authorization" = header))
-      if (response$status_code == 200) {
-        content_type <- headers(response)$`content-type`
-        image <- image_read(response$content, format = content_type)
-        return(image)
-      } else {
-        return(NULL)
-      }
-    }
-
+  server = function(input, output) {
     # PICTURE 1
     output$picture1 <- renderImage({
-      picture1 <- download_image("https://repository.lboro.ac.uk/ndownloader/files/44908990/preview/44908990/preview.jpg", api_key)
+      picture1 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908990/preview/44908990/preview.jpg")
       if (!is.null(picture1)) {
         temp_frame <- picture1 %>%
           image_rotate(input$rotate) %>%
           image_blur(input$blur, input$blur) %>%
           image_implode(input$implode)
-         # Generate a temporary file name
-      temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
-      # Convert the manipulated image to a format that can be rendered
-      image_write(temp_frame, path = temp_file)
-      list(src = temp_file,
-           contentType = 'image/jpeg',
-           width = '100%')
-    }
-  })
-}
+        temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
+        image_write(temp_frame, path = temp_file)
+        list(src = temp_file,
+             contentType = 'image/jpeg',
+             width = '100%')
+      }
+    })
     output$text1 <- renderText({
       paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
     })
-
     # PICTURE 2
     output$picture2 <- renderImage({
       picture2 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908999/preview/44908999/preview.jpg")
@@ -112,7 +93,6 @@ shinyApp(
         image_rotate(input$rotate) %>%
         image_blur(input$blur, input$blur) %>%
         image_implode(input$implode)
-      # Convert the manipulated image to a format that can be rendered
       temp_file <- tempfile(fileext='.jpg')
       image_write(temp_frame, temp_file)
       list(src = temp_file,
@@ -130,7 +110,6 @@ shinyApp(
         image_rotate(input$rotate) %>%
         image_blur(input$blur, input$blur) %>%
         image_implode(input$implode)
-      # Convert the manipulated image to a format that can be rendered
       temp_file <- tempfile(fileext='.jpg')
       image_write(temp_frame, temp_file)
       list(src = temp_file,
@@ -148,7 +127,6 @@ shinyApp(
         image_rotate(input$rotate) %>%
         image_blur(input$blur, input$blur) %>%
         image_implode(input$implode)
-      # Convert the manipulated image to a format that can be rendered
       temp_file <- tempfile(fileext='.jpg')
       image_write(temp_frame, temp_file)
       list(src = temp_file,
@@ -166,7 +144,6 @@ shinyApp(
         image_rotate(input$rotate) %>%
         image_blur(input$blur, input$blur) %>%
         image_implode(input$implode)
-      # Convert the manipulated image to a format that can be rendered
       temp_file <- tempfile(fileext='.jpg')
       image_write(temp_frame, temp_file)
       list(src = temp_file,
@@ -177,7 +154,9 @@ shinyApp(
     output$text5 <- renderText({
       paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
     })
-  })
+  }
+)
+
 
 ```
 
