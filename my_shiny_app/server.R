@@ -1,8 +1,7 @@
-function(input, output) {
+function(input, output, session) {
   # PICTURE 1
   output$picture1 <- renderImage({
-    # response1 <- GET("https://repository.lboro.ac.uk/ndownloader/files/44908990")
-    picture1 <- image_read("jbf_image1.jpg")
+    picture1 <- image_read("image_1.jpg")
     temp_frame <- picture1 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
@@ -18,7 +17,7 @@ function(input, output) {
   })
   # PICTURE 2
   output$picture2 <- renderImage({
-    picture2 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908999/preview/44908999/preview.jpg")
+    picture2 <- image_read(file.path("my_shiny_app", "image_2.jpg"))
     temp_frame <- picture2 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
@@ -35,7 +34,7 @@ function(input, output) {
   
   # PICTURE 3
   output$picture3 <- renderImage({
-    picture3 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908975/preview/44908975/preview.jpg")
+    picture3 <- image_read(file.path("my_shiny_app", "image_3.jpg"))
     temp_frame <- picture3 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
@@ -52,7 +51,7 @@ function(input, output) {
   
   # PICTURE 4
   output$picture4 <- renderImage({
-    picture4 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908981/preview/44908981/preview.jpg")
+    picture4 <- image_read(file.path("my_shiny_app", "image_4.jpg"))
     temp_frame <- picture4 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
@@ -69,7 +68,7 @@ function(input, output) {
   
   # PICTURE 5
   output$picture5 <- renderImage({
-    picture5 <- image_read("https://repository.lboro.ac.uk/ndownloader/files/44908987/preview/44908987/preview.jpg")
+    picture5 <- image_read(file.path("my_shiny_app", "image_5.jpg"))
     temp_frame <- picture5 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%

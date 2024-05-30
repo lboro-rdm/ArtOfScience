@@ -1,3 +1,5 @@
-library(shiny)
-library(magick)
-library(httr)
+GET("https://repository.lboro.ac.uk/ndownloader/files/44908975", write_disk("../image_1.jpg", overwrite = T))
+GET("https://repository.lboro.ac.uk/ndownloader/files/44908990", write_disk("image_2.jpg", overwrite = T))
+GET("https://repository.lboro.ac.uk/ndownloader/files/44908999", write_disk("image_3.jpg", overwrite = T))
+GET("https://repository.lboro.ac.uk/ndownloader/files/44908981", write_disk("image_4.jpg", overwrite = T))
+GET("https://repository.lboro.ac.uk/ndownloader/files/44908987", write_disk("image_5.jpg", overwrite = T))

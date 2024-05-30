@@ -5,16 +5,16 @@ output: slidy_presentation
 css: "bootstrap.css"
 runtime: shiny
 ---
-
-```{r setup, include=FALSE}
+ 
+```{r setup, include=FALSE} 
 knitr::opts_chunk$set(echo = FALSE)
-
+library(tidyverse)
 library(shiny)
 library(magick)
-library(httr)
-
+library(here)
+library(shinycssloaders)
+library(httr2)
 ```
-
 ## Artist's statement
 
 I have been working as an artist for over thirty years. I am fascinated by light, colour, lasers, technology and science. My initial curiosity in how artists can work with scientists was piqued in 1998 when I became aware of the SciArt scheme. The ethos of the SciArt scheme encouraged me, as an artist, to seek out Life Scientists to collaborate with because the methods we employ to create images are connected. We both use laser technology (I make laser-cut lightboxes), which requires knowledge of light, optics, and computer visualisation methods and I am fascinated by how I can use scientific image data innovatively. As a result, since 2010, a central part of my practice has involved contributing to scientific research projects as one of the research team.
