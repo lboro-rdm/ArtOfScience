@@ -1,12 +1,13 @@
 function(input, output, session) {
   # PICTURE 1
   output$picture1 <- renderImage({
-    picture1 <- image_read("image_1.jpg")
+    image1url <- "https://repository.lboro.ac.uk/ndownloader/files/44908975"
+    picture1 <- image_read(image1url)
     temp_frame <- picture1 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
       image_implode(input$implode)
-    temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
+    temp_file <- tempfile(fileext='.jpg')
     image_write(temp_frame, path = temp_file)
     list(src = temp_file,
          contentType = 'image/jpeg',
@@ -17,12 +18,13 @@ function(input, output, session) {
   })
   # PICTURE 2
   output$picture2 <- renderImage({
-    picture2 <- image_read(file.path("my_shiny_app", "image_2.jpg"))
+    image2url <- "https://repository.lboro.ac.uk/ndownloader/files/44908990"
+    picture2 <- image_read(image2url)
     temp_frame <- picture2 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
       image_implode(input$implode)
-    temp_file <- tempfile(fileext='.jpg')
+    temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
     image_write(temp_frame, temp_file)
     list(src = temp_file,
          contentType = 'image/jpeg',
@@ -34,7 +36,8 @@ function(input, output, session) {
   
   # PICTURE 3
   output$picture3 <- renderImage({
-    picture3 <- image_read(file.path("my_shiny_app", "image_3.jpg"))
+    image3url <- "https://repository.lboro.ac.uk/ndownloader/files/44908999"
+    picture3 <- image_read(image3url)
     temp_frame <- picture3 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
@@ -51,7 +54,8 @@ function(input, output, session) {
   
   # PICTURE 4
   output$picture4 <- renderImage({
-    picture4 <- image_read(file.path("my_shiny_app", "image_4.jpg"))
+    image4url <- "https://repository.lboro.ac.uk/ndownloader/files/44908981"
+    picture4 <- image_read(image4url)
     temp_frame <- picture4 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%
@@ -68,7 +72,8 @@ function(input, output, session) {
   
   # PICTURE 5
   output$picture5 <- renderImage({
-    picture5 <- image_read(file.path("my_shiny_app", "image_5.jpg"))
+    image5url <- "https://repository.lboro.ac.uk/ndownloader/files/44908987"
+    picture5 <- image_read(image5url)
     temp_frame <- picture5 %>%
       image_rotate(input$rotate) %>%
       image_blur(input$blur, input$blur) %>%

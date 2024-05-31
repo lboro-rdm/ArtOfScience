@@ -1,4 +1,7 @@
-library(httr)
+library(magick)
 
-GET("https://repository.lboro.ac.uk/ndownloader/files/44908975", write_disk("image_1.jpg", overwrite = TRUE))
+image1url <- "https://repository.lboro.ac.uk/ndownloader/files/44908975"
 
+image1 <- image_read(image1url)
+
+print(image1)
