@@ -19,6 +19,7 @@ fluidPage(
                   step = 0.01)
     ),
     mainPanel(tabsetPanel(
+      id = "image_viewer_tab_id",
       tabPanel("Image 1", 
                imageOutput("picture1", height = "auto"),
                textOutput("text1")
