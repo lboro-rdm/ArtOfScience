@@ -23,10 +23,6 @@ I identified a gap in knowledge while working with scientists in labs. There was
 
 ## Art-Science Interplay
 
-```{r Shiny_Picture, message=FALSE, warning=FALSE}
-source(here::here("my_shiny_app", "global.R"))
-```
-
 ```{r}
 shiny::shinyAppDir("my_shiny_app/")
 ```
