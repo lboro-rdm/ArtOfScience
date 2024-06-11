@@ -1,138 +1,70 @@
+# Use a Python virtual environment or Conda environment
+#use_virtualenv("myenv")  # replace 'myenv' with your environment name
+
+# Import Python libraries
+pil <- import("PIL")
+image <- pil$Image
+image_filter <- pil$ImageFilter
+
 function(input, output, session){
   
+  # Load initial images using PIL
+  image_reactives <- reactiveValues(
+    image_1 = image$open("image-1.jpg"),
+    image_2 = image$open("image-2.jpg"),
+    image_3 = image$open("image-3.jpg"),
+    image_4 = image$open("image-4.jpg"),
+    image_5 = image$open("image-5.jpg")
+  )
   
-  image_reactives <- reactiveValues(image_1 = image_1,
-                                    image_2 = image_2,
-                                    image_3 = image_3,
-                                    image_4 = image_4,
-                                    image_5 = image_5)
-  
-  observeEvent(c(input$implode, input$image_viewer_tab_id),
-               {
-                 
-                 image_imploded <- image_reactives[[input$image_viewer_tab_id]] %>% 
-                   image_implode(input$implode)
-                 
-                 image_reactives[[input$image_viewer_tab_id]] <- image_imploded
-                 
-               }) 
-  
-  observeEvent(c(input$blur, input$image_viewer_tab_id),
-               {
-                 
-                 image_blurred <- image_reactives[[input$image_viewer_tab_id]] %>% 
-                   image_blur(input$blur, input$blur)
-                 
-                 image_reactives[[input$image_viewer_tab_id]] <- image_blurred
-                 
-               })
-  
-  observeEvent(c(input$rotate, input$image_viewer_tab_id),
-               {
-                 
-                 image_rotated <- image_reactives[[input$image_viewer_tab_id]] %>% 
-                   image_rotate(input$rotate)
-                 
-                 image_reactives[[input$image_viewer_tab_id]] <- image_rotated
-                 
-               })
-  
-  
-  
-  # PICTURE 1
-  output$picture1 <- renderImage({
-    # picture1 <- image_read("foo.jpg")
-    # if (!is.null(picture1)) {
-    #   temp_frame <- picture1 %>%
-    #     image_rotate(input$rotate) %>%
-    #     image_blur(input$blur, input$blur) %>%
-    #     image_implode(input$implode)
+  observeEvent(c(input$implode, input$image_viewer_tab_id), {
+    image_path <- tempfile(fileext = '.jpg')
     
-    image_1_modified <- image_reactives$image_1
+    image_imploded <- image_reactives[[input$image_viewer_tab_id]]
+    image_imploded <- image_imploded$filter(image_filter$EMBOSS) # Placeholder for 'implode' effect
     
-    temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
-    image_write(image_1_modified, path = temp_file)
-    list(src = temp_file,
-         contentType = 'image/jpeg',
-         width = '100%')
-  })
+    image_imploded$save(image_path)
+    image_reactives[[input$image_viewer_tab_id]] <- image_imploded
+  }) 
   
-  output$text1 <- renderText({
-    paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-  })
-  # PICTURE 2
-  
-  
-  output$picture2 <- renderImage({
+  observeEvent(c(input$blur, input$image_viewer_tab_id), {
+    image_path <- tempfile(fileext = '.jpg')
     
-    image_2_modified <- image_reactives$image_2
+    image_blurred <- image_reactives[[input$image_viewer_tab_id]]
+    image_blurred <- image_blurred$filter(image_filter$GaussianBlur(radius = as.integer(input$blur)))
     
-    temp_file <- tempfile(fileext='.jpg')
-    image_write(image_2_modified, temp_file)
-    list(src = temp_file,
-         contentType = 'image/jpeg',
-         width = '100%')
+    image_blurred$save(image_path)
+    image_reactives[[input$image_viewer_tab_id]] <- image_blurred
   })
   
-  
-  output$text2 <- renderText({
-    paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-  })
-  
-  # PICTURE 3
-  output$picture3 <- renderImage({
-    image_3_modified <- image_reactives$image_3
+  observeEvent(c(input$rotate, input$image_viewer_tab_id), {
+    image_path <- tempfile(fileext = '.jpg')
     
-    temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
-    image_write(image_3_modified, path = temp_file)
-    list(src = temp_file,
-         contentType = 'image/jpeg',
-         width = '100%')
-  })
-  output$text3 <- renderText({
-    paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-  })
-  
-  # PICTURE 4
-  output$picture4 <- renderImage({
-    image_4_modified <- image_reactives$image_4
+    image_rotated <- image_reactives[[input$image_viewer_tab_id]]
+    image_rotated <- image_rotated$rotate(as.integer(input$rotate))
     
-    temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
-    image_write(image_4_modified, path = temp_file)
-    list(src = temp_file,
-         contentType = 'image/jpeg',
-         width = '100%')
-  })
-  output$text4 <- renderText({
-    paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    image_rotated$save(image_path)
+    image_reactives[[input$image_viewer_tab_id]] <- image_rotated
   })
   
-  # PICTURE 5
-  output$picture5 <- renderImage({
-    image_5_modified <- image_reactives$image_5
-    
-    temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
-    image_write(image_5_modified, path = temp_file)
-    list(src = temp_file,
-         contentType = 'image/jpeg',
-         width = '100%')
-    
-  })
+  render_image <- function(image) {
+    image_path <- tempfile(fileext = '.jpg')
+    image$save(image_path)
+    list(src = image_path, contentType = 'image/jpeg', width = '100%')
+  }
   
-  output$text5 <- renderText({
-    paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-  })
+  output$picture1 <- renderImage({ render_image(image_reactives$image_1) })
+  output$text1 <- renderText({ "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." })
   
-  # # Function to reset sliders
-  # resetSliders <- function() {
-  #   updateSliderInput(session, "rotate", value = 0)
-  #   updateSliderInput(session, "blur", value = 0)
-  #   updateSliderInput(session, "implode", value = 0)
-  # }
-  # 
-  # # Observe tabPanel change
-  # observeEvent(input$image_viewer_tab_id, {
-  #   resetSliders()
-  # })
+  output$picture2 <- renderImage({ render_image(image_reactives$image_2) })
+  output$text2 <- renderText({ "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." })
   
+  output$picture3 <- renderImage({ render_image(image_reactives$image_3) })
+  output$text3 <- renderText({ "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." })
+  
+  output$picture4 <- renderImage({ render_image(image_reactives$image_4) })
+  output$text4 <- renderText({ "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." })
+  
+  output$picture5 <- renderImage({ render_image(image_reactives$image_5) })
+  output$text5 <- renderText({ "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." })
 }
