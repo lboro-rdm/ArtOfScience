@@ -1,5 +1,8 @@
+library(shiny)
+library(reticulate)
+
 # Use a Python virtual environment or Conda environment
-#use_virtualenv("myenv")  # replace 'myenv' with your environment name
+use_virtualenv("c:/users/laras/onedrive/documents/.virtualenvs/r-reticulate", required = TRUE)  # replace 'myenv' with your environment name
 
 # Import Python libraries
 pil <- import("PIL")
@@ -10,40 +13,67 @@ function(input, output, session){
   
   # Load initial images using PIL
   image_reactives <- reactiveValues(
-    image_1 = image$open("image-1.jpg"),
-    image_2 = image$open("image-2.jpg"),
-    image_3 = image$open("image-3.jpg"),
-    image_4 = image$open("image-4.jpg"),
-    image_5 = image$open("image-5.jpg")
+    image_1 = image$open("path/to/image1.jpg"),
+    image_2 = image$open("path/to/image2.jpg"),
+    image_3 = image$open("path/to/image3.jpg"),
+    image_4 = image$open("path/to/image4.jpg"),
+    image_5 = image$open("path/to/image5.jpg")
   )
   
   observeEvent(c(input$implode, input$image_viewer_tab_id), {
-    image_path <- tempfile(fileext = '.jpg')
+    # Debug: Print the current image mode
+    print(paste("Implode - Before:", image_reactives[[input$image_viewer_tab_id]]$mode))
     
+    # Apply the 'implode' effect (EMBOSS as a placeholder)
     image_imploded <- image_reactives[[input$image_viewer_tab_id]]
-    image_imploded <- image_imploded$filter(image_filter$EMBOSS) # Placeholder for 'implode' effect
+    image_imploded <- image_imploded$filter(image_filter$EMBOSS)
     
-    image_imploded$save(image_path)
+    # Convert to 'RGB' mode if not already
+    if (image_imploded$mode != "RGB") {
+      image_imploded <- image_imploded$convert("RGB")
+    }
+    
+    # Debug: Print the new image mode
+    print(paste("Implode - After:", image_imploded$mode))
+    
     image_reactives[[input$image_viewer_tab_id]] <- image_imploded
   }) 
   
   observeEvent(c(input$blur, input$image_viewer_tab_id), {
-    image_path <- tempfile(fileext = '.jpg')
+    # Debug: Print the current image mode
+    print(paste("Blur - Before:", image_reactives[[input$image_viewer_tab_id]]$mode))
     
+    # Apply the blur effect
     image_blurred <- image_reactives[[input$image_viewer_tab_id]]
     image_blurred <- image_blurred$filter(image_filter$GaussianBlur(radius = as.integer(input$blur)))
     
-    image_blurred$save(image_path)
+    # Convert to 'RGB' mode if not already
+    if (image_blurred$mode != "RGB") {
+      image_blurred <- image_blurred$convert("RGB")
+    }
+    
+    # Debug: Print the new image mode
+    print(paste("Blur - After:", image_blurred$mode))
+    
     image_reactives[[input$image_viewer_tab_id]] <- image_blurred
   })
   
   observeEvent(c(input$rotate, input$image_viewer_tab_id), {
-    image_path <- tempfile(fileext = '.jpg')
+    # Debug: Print the current image mode
+    print(paste("Rotate - Before:", image_reactives[[input$image_viewer_tab_id]]$mode))
     
+    # Apply the rotate effect
     image_rotated <- image_reactives[[input$image_viewer_tab_id]]
     image_rotated <- image_rotated$rotate(as.integer(input$rotate))
     
-    image_rotated$save(image_path)
+    # Convert to 'RGB' mode if not already
+    if (image_rotated$mode != "RGB") {
+      image_rotated <- image_rotated$convert("RGB")
+    }
+    
+    # Debug: Print the new image mode
+    print(paste("Rotate - After:", image_rotated$mode))
+    
     image_reactives[[input$image_viewer_tab_id]] <- image_rotated
   })
   
