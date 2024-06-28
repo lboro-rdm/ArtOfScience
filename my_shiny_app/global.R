@@ -15,27 +15,27 @@ download_and_read_image <- function(fig_url, file_name){
   }
 }
 
-url_image_1 <- "https://repository.lboro.ac.uk/ndownloader/files/44908975"
+url_image_1 <- "https://ndownloader.figshare.com/files/44908975"
 
 image_1 <- url_image_1 %>% 
   download_and_read_image(here::here("image-1.jpg"))
 
-url_image_2 <- "https://repository.lboro.ac.uk/ndownloader/files/44908990"
+url_image_2 <- "https://ndownloader.figshare.com/files/44908990"
 
 image_2 <- url_image_2 %>% 
   download_and_read_image(here::here("image-2.jpg"))
 
-url_image_3 <- "https://repository.lboro.ac.uk/ndownloader/files/44908999"
+url_image_3 <- "https://ndownloader.figshare.com/files/44908999"
 
 image_3 <- url_image_3 %>% 
   download_and_read_image(here::here("image-3.jpg"))
 
-url_image_4 <- "https://repository.lboro.ac.uk/ndownloader/files/44908981"
+url_image_4 <- "https://ndownloader.figshare.com/files/44908981"
 
 image_4 <- url_image_4 %>% 
   download_and_read_image(here::here("image-4.jpg"))
 
-url_image_5 <- "https://repository.lboro.ac.uk/ndownloader/files/44908987"
+url_image_5 <- "https://ndownloader.figshare.com/files/44908987"
 
 image_5 <- url_image_5 %>% 
   download_and_read_image(here::here("image-5.jpg"))
