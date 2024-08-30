@@ -1,51 +1,95 @@
 function(input, output, session) {
 
+  download_images <- ExtendedTask$new(function(x){
+    
+    future_promise({
+      
+      download.file("https://repository.lboro.ac.uk/ndownloader/files/44908975", 
+                    tempfile())
+      download.file("https://repository.lboro.ac.uk/ndownloader/files/44908990", 
+                    tempfile())
+      download.file("https://repository.lboro.ac.uk/ndownloader/files/44908999", 
+                    tempfile())
+      download.file("https://repository.lboro.ac.uk/ndownloader/files/44908981", 
+                    tempfile())
+      download.file("https://repository.lboro.ac.uk/ndownloader/files/44908987", 
+                    tempfile())
+      
+      print("successfully downloaded")
+      
+      })
+    
+  })
+  
   image_reactives <- reactiveValues(image_1 = image_1,
                                     image_2 = image_2,
                                     image_3 = image_3,
                                     image_4 = image_4,
-                                    image_5 = image_5)
+                                    image_5 = image_5,
+                                    download_started = FALSE)
+  
+  modify_image <- reactive({
+    
+    image_modified <- images_original[[input$image_viewer_tab_id]] %>%
+      image_rotate(input$rotate) %>%
+      image_blur(input$blur, input$blur) %>% 
+      image_implode(input$implode)
+    
+    image_reactives[[input$image_viewer_tab_id]] <- image_modified
+    
+  }) %>% 
+    #bindCache(input$image_viewer_tab_id, input$rotate, input$blur, input$implode) %>% 
+    bindEvent(input$update_chart, input$image_viewer_tab_id)
   
   
-  observeEvent(c(input$rotate, input$image_viewer_tab_id),
-               {
-                 
-                 image_rotated <- images_original[[input$image_viewer_tab_id]] %>%
-                   image_rotate(input$rotate)
-                 
-                 image_reactives[[input$image_viewer_tab_id]] <- image_rotated
-                 
-               })
-
   
-  observeEvent(c(input$blur, input$image_viewer_tab_id),
-               {
-
-                 image_blurred <- image_reactives[[input$image_viewer_tab_id]] %>%
-                   image_blur(input$blur, input$blur)
-
-                 image_reactives[[input$image_viewer_tab_id]] <- image_blurred
-
-               })
-
-  
-  observeEvent(c(input$implode, input$image_viewer_tab_id),
-               {
-                 print(input$image_viewer_tab_id)
-                 image_imploded <- image_reactives[[input$image_viewer_tab_id]] %>% 
-                   image_implode(input$implode)
-                 image_reactives[[input$image_viewer_tab_id]] <- image_imploded
-                 
-               }) 
-  
-  
+  # observeEvent(c(input$rotate, input$image_viewer_tab_id),
+  #              {
+  #                
+  #                image_rotated <- images_original[[input$image_viewer_tab_id]] %>%
+  #                  image_rotate(input$rotate)
+  #                
+  #                image_reactives[[input$image_viewer_tab_id]] <- image_rotated
+  #                
+  #              })
+  # 
+  # 
+  # observeEvent(c(input$blur, input$image_viewer_tab_id),
+  #              {
+  # 
+  #                image_blurred <- image_reactives[[input$image_viewer_tab_id]] %>%
+  #                  image_blur(input$blur, input$blur)
+  # 
+  #                image_reactives[[input$image_viewer_tab_id]] <- image_blurred
+  # 
+  #              })
+  # 
+  # 
+  # observeEvent(c(input$implode, input$image_viewer_tab_id),
+  #              {
+  #                print(input$image_viewer_tab_id)
+  #                image_imploded <- image_reactives[[input$image_viewer_tab_id]] %>% 
+  #                  image_implode(input$implode)
+  #                image_reactives[[input$image_viewer_tab_id]] <- image_imploded
+  #                
+  #              }) 
+  # 
+  # 
   
   # PICTURE 1
   output$picture1 <- renderImage({
     print(class(image_reactives$image_1))
+    #print(image_reactives$download_started)
+    if(image_reactives$download_started == FALSE){
+      image_reactives$download_started <- TRUE
+      download_images$invoke(input$rotate)
+      
+    }
+    
+    modify_image()
     
     image_1_modified <- image_reactives$image_1
-    
+
     temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
     image_write(image_1_modified, path = temp_file)
     list(src = temp_file,
@@ -59,6 +103,8 @@ function(input, output, session) {
   # PICTURE 2
   
   output$picture2 <- renderImage({
+    
+    modify_image()
     
     image_2_modified <- image_reactives$image_2
     
@@ -76,6 +122,9 @@ function(input, output, session) {
   
   # PICTURE 3
   output$picture3 <- renderImage({
+    
+    modify_image()
+    
     image_3_modified <- image_reactives$image_3
     
     temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
@@ -90,6 +139,9 @@ function(input, output, session) {
   
   # PICTURE 4
   output$picture4 <- renderImage({
+    
+    modify_image()
+    
     image_4_modified <- image_reactives$image_4
     
     temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
@@ -104,6 +156,9 @@ function(input, output, session) {
   
   # PICTURE 5
   output$picture5 <- renderImage({
+    
+    modify_image()
+    
     image_5_modified <- image_reactives$image_5
     
     temp_file <- tempfile(fileext='.jpg', tmpdir = tempdir())
