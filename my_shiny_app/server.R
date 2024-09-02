@@ -14,9 +14,7 @@ function(input, output, session) {
                     tempfile())
       download.file("https://repository.lboro.ac.uk/ndownloader/files/44908987", 
                     tempfile())
-      
-      print("successfully downloaded")
-      
+
       })
     
   })
@@ -38,48 +36,15 @@ function(input, output, session) {
     image_reactives[[input$image_viewer_tab_id]] <- image_modified
     
   }) %>% 
-    #bindCache(input$image_viewer_tab_id, input$rotate, input$blur, input$implode) %>% 
+
     bindEvent(input$update_chart, input$image_viewer_tab_id)
   
   
   
-  # observeEvent(c(input$rotate, input$image_viewer_tab_id),
-  #              {
-  #                
-  #                image_rotated <- images_original[[input$image_viewer_tab_id]] %>%
-  #                  image_rotate(input$rotate)
-  #                
-  #                image_reactives[[input$image_viewer_tab_id]] <- image_rotated
-  #                
-  #              })
-  # 
-  # 
-  # observeEvent(c(input$blur, input$image_viewer_tab_id),
-  #              {
-  # 
-  #                image_blurred <- image_reactives[[input$image_viewer_tab_id]] %>%
-  #                  image_blur(input$blur, input$blur)
-  # 
-  #                image_reactives[[input$image_viewer_tab_id]] <- image_blurred
-  # 
-  #              })
-  # 
-  # 
-  # observeEvent(c(input$implode, input$image_viewer_tab_id),
-  #              {
-  #                print(input$image_viewer_tab_id)
-  #                image_imploded <- image_reactives[[input$image_viewer_tab_id]] %>% 
-  #                  image_implode(input$implode)
-  #                image_reactives[[input$image_viewer_tab_id]] <- image_imploded
-  #                
-  #              }) 
-  # 
-  # 
-  
+ 
   # PICTURE 1
   output$picture1 <- renderImage({
-    print(class(image_reactives$image_1))
-    #print(image_reactives$download_started)
+
     if(image_reactives$download_started == FALSE){
       image_reactives$download_started <- TRUE
       download_images$invoke(input$rotate)
