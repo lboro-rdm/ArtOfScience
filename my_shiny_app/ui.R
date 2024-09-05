@@ -31,24 +31,29 @@ navbarPage("Art-Science Interplay",
                  mainPanel(tabsetPanel(
                    id = "image_viewer_tab_id",
                    tabPanel("Image 1", 
-                            imageOutput("picture1", height = "auto"),
-                            textOutput("text1"), value = "image_1"
+                            withSpinner(imageOutput("picture1", height = "auto"), type = 5),
+                            withSpinner(textOutput("text1"), type = 5), 
+                            value = "image_1"
                    ),
                    tabPanel("Image 2",
-                            imageOutput("picture2", height = "auto"),
-                            textOutput("text2"), value = "image_2"
+                            withSpinner(imageOutput("picture2", height = "auto"), type = 5),
+                            withSpinner(textOutput("text2"), type = 5), 
+                            value = "image_2"
                    ),
                    tabPanel("Image 3",
-                            imageOutput("picture3", height = "auto"),
-                            textOutput("text3"), value = "image_3"
+                            withSpinner(imageOutput("picture3", height = "auto"), type = 5),
+                            withSpinner(textOutput("text3"), type = 5), 
+                            value = "image_3"
                    ),
                    tabPanel("Image 4",
-                            imageOutput("picture4", height = "auto"),
-                            textOutput("text4"), value = "image_4"
+                            withSpinner(imageOutput("picture4", height = "auto"), type = 5),
+                            withSpinner(textOutput("text4"), type = 5), 
+                            value = "image_4"
                    ),
                    tabPanel("Image 5",
-                            imageOutput("picture5", height = "auto"),
-                            textOutput("text5"), value = "image_5"
+                            withSpinner(imageOutput("picture5", height = "auto"), type = 5),
+                            withSpinner(textOutput("text5"), type = 5), 
+                            value = "image_5"
                    )
                  ))
                )
