@@ -99,7 +99,7 @@ function(input, output, session) {
          width = '100%')
   })
   output$text3 <- renderText({
-    paste("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    paste("A Radiolarian imaged on a Zeiss Ultra Plus Scanning Electron Microscope (SEM)6. The drawing was constructed of simple hand drawn vector shapes (squares and rectangles) using the Adobe Illustrator programme. Drawing digitally is used to identify key details of the structural intricacy of the Radiolarian. The transcribed information was then copied, pasted and rotated over a five degree four times to visualise a drawn example of Photogrammetry")
   })
   
   # PICTURE 4

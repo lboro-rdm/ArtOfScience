@@ -60,22 +60,35 @@ navbarPage("Art-Science Interplay",
              )
            ), 
            
-           tabPanel("About this virtual exhibition", 
-                    fluidPage(HTML("This virtual exhibition seeks to showcase qualitative material in an interactive way. It was created in R, with the following packages:
-<ul>
-  <li><a href='https://cran.r-project.org/web/packages/future/index.html'>Future</a></li>
-  <li><a href='https://here.r-lib.org/'>Here</a></li>
-  <li><a href='https://httr.r-lib.org/'>Httr</a></li>
-  <li><a href='https://docs.ropensci.org/magick/index.html'>Magick</a></li>
-  <li><a href='https://cran.r-project.org/web/packages/promises/index.html'>Promises</a></li>
-  <li><a href='https://shiny.posit.co/'>Shiny</a></li>
-  <li><a href='https://cran.r-project.org/web/packages/shinycssloaders/index.html'>Shinycssloaders</a></li>
-  <li><a href='https://www.tidyverse.org/'>Tidyverse</a></li>
-</ul>
-                                   
-    Created by Lara Skelly, Loughborough University. Funding was received from Arts Council England under the <a href='https://www.artscouncil.org.uk/dycp'>Develop Your Creative Practice scheme</a>. The sourcecode can be found on <a href='https://github.com/lboro-rdm/ArtOfScience.git'>GitHub</a>. The citation is:
-    <p></p>
-    <p>Skelly, Lara (2024). Art of Science: an interactive exhibition. Loughborough University. Online resource. <a href='https://doi.org/10.17028/rd.lboro.26901427'>https://doi.org/10.17028/rd.lboro.26901427</a></p>"))),
-           
-)
+# About ----
 
+tabPanel(
+  "About this virtual exhibition",
+  fluidPage(
+      p("This virtual exhibition seeks to showcase qualitative material in an interactive way. It was created in R, with the following packages:"),
+      tags$ul(
+        tags$li("future: Henrik Bengtsson, A Unifying Framework for Parallel and Distributed Processing in R using Futures, The R Journal (2021) 13:2, pages 208-227, ", a("doi:10.32614/RJ-2021-048", href = "https://doi.org/10.32614/RJ-2021-048")),
+        tags$li(tags$a(href = 'https://here.r-lib.org/', "Here")),
+        tags$li("Httr: Wickham H (2023). httr: Tools for Working with URLs and HTTP. ", a("https://httr.r-lib.org/", href = "https://httr.r-lib.org/"), ",", a("https://github.com/r-lib/httr", href = "https://github.com/r-lib/httr")),
+        tags$li("magick: Ooms J (2024). magick: Advanced Graphics and Image-Processing in R. R package version 2.8.5, ", a("https://docs.ropensci.org/magick/", href = "https://docs.ropensci.org/magick/"), ",", a("https://ropensci.r-universe.dev/magick", href = "https://ropensci.r-universe.dev/magick")),
+        tags$li(tags$a(href = 'https://cran.r-project.org/web/packages/promises/index.html', "Promises")),
+        tags$li(tags$a(href = 'https://shiny.posit.co/', "Shiny")),
+        tags$li(tags$a(href = 'https://cran.r-project.org/web/packages/shinycssloaders/index.html', "Shinycssloaders")),
+        tags$li(tags$a(href = 'https://www.tidyverse.org/', "Tidyverse"))
+      ),
+      p("Created by Lara Skelly, Loughborough University. Funding was received from Arts Council England under the ", tags$a(href = 'https://www.artscouncil.org.uk/dycp', "Develop Your Creative Practice scheme")),
+      p(),
+      tags$img(src = "logo.png", width = "300px"),
+      p(),
+      p("The source code can be found on ", tags$a(href = 'https://github.com/lboro-rdm/ArtOfScience.git', "GitHub")),
+      p("Copyright:"),
+      tags$ul(
+        tags$li("Text copyright (Artist's statement and image captions): Joanne Berry-Frith, CC-BY-NC-ND"),
+        tags$li("Image copyright: Joanne Berry-Frith, CC-BY-NC-ND"),
+        tags$li("Code copyright: Lara Skelly, MIT")
+      ),
+      p("The citation for this app is:"),
+      p("Skelly, Lara; Berry-Frith, Joanne. (2024). Art of Science: an interactive exhibition. Loughborough University. Online resource. ", tags$a(href = 'https://doi.org/10.17028/rd.lboro.26901427', "https://doi.org/10.17028/rd.lboro.26901427"))
+    )
+  )
+)
