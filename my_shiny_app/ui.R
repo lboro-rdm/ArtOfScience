@@ -71,19 +71,26 @@ tabPanel(
   fluidPage(
       p("This virtual exhibition seeks to showcase qualitative material in an interactive way. It was created in R, with the following packages:"),
       tags$ul(
-        tags$li("future: Henrik Bengtsson, A Unifying Framework for Parallel and Distributed Processing in R using Futures, The R Journal (2021) 13:2, pages 208-227, ", a("doi:10.32614/RJ-2021-048", href = "https://doi.org/10.32614/RJ-2021-048")),
-        tags$li(tags$a(href = 'https://here.r-lib.org/', "Here")),
-        tags$li("Httr: Wickham H (2023). httr: Tools for Working with URLs and HTTP. ", a("https://httr.r-lib.org/", href = "https://httr.r-lib.org/"), ",", a("https://github.com/r-lib/httr", href = "https://github.com/r-lib/httr")),
-        tags$li("magick: Ooms J (2024). magick: Advanced Graphics and Image-Processing in R. R package version 2.8.5, ", a("https://docs.ropensci.org/magick/", href = "https://docs.ropensci.org/magick/"), ",", a("https://ropensci.r-universe.dev/magick", href = "https://ropensci.r-universe.dev/magick")),
-        tags$li(tags$a(href = 'https://cran.r-project.org/web/packages/promises/index.html', "Promises")),
-        tags$li(tags$a(href = 'https://shiny.posit.co/', "Shiny")),
-        tags$li(tags$a(href = 'https://cran.r-project.org/web/packages/shinycssloaders/index.html', "Shinycssloaders")),
-        tags$li(tags$a(href = 'https://www.tidyverse.org/', "Tidyverse"))
+        tags$li(HTML("Attali D, Sali A (2024). <i>shinycssloaders: Add Loading Animations to a 'shiny' Output While It's Recalculating</i>. R package version 1.1.0, "), 
+                tags$a(href = "https://CRAN.R-project.org/package=shinycssloaders", "https://CRAN.R-project.org/package=shinycssloaders")),
+        tags$li(HTML("Bengtsson H (2021). “A Unifying Framework for Parallel and Distributed Processing in R using Futures.” <i>The R Journal</i>, <b>13</b>(2), pages 208-227. "), 
+                tags$a(href = "https://doi.org/10.32614/RJ-2021-048", "doi:10.32614/RJ-2021-048")),
+        tags$li(HTML("Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J, McPherson J, Dipert A, Borges B (2024). <i>shiny: Web Application Framework for R</i>. R package version 1.10.0, "), 
+                tags$a(href = "https://CRAN.R-project.org/package=shiny", "https://CRAN.R-project.org/package=shiny")),
+        tags$li(HTML("Cheng J (2024). <i>promises: Abstractions for Promise-Based Asynchronous Programming</i>. R package version 1.3.2, "), 
+                tags$a(href = "https://CRAN.R-project.org/package=promises", "https://CRAN.R-project.org/package=promises")),
+        tags$li(HTML("Müller K (2020). <i>here: A Simpler Way to Find Your Files</i>. R package version 1.0.1, "), 
+                tags$a(href = "https://CRAN.R-project.org/package=here", "https://CRAN.R-project.org/package=here")),
+        tags$li(HTML("Ooms J (2024). <i>magick: Advanced Graphics and Image-Processing in R</i>. R package version 2.8.5, "), 
+                tags$a(href = "https://CRAN.R-project.org/package=magick", "https://CRAN.R-project.org/package=magick"),
+        tags$li(HTML("Wickham H (2023). <i>httr: Tools for Working with URLs and HTTP</i>. R package version 1.4.7, "), 
+                tags$a(href = "https://CRAN.R-project.org/package=httr", "https://CRAN.R-project.org/package=httr")),
+        tags$li(HTML("Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” <i>Journal of Open Source Software</i>, <b>4</b>(43), 1686. "), 
+                tags$a(href = "https://doi.org/10.21105/joss.01686", "doi:10.21105/joss.01686"))
+      )
       ),
-      p("Created by Lara Skelly, Loughborough University. Funding was received from Arts Council England under the ", tags$a(href = 'https://www.artscouncil.org.uk/dycp', "Develop Your Creative Practice scheme")),
-      p(),
-      tags$img(src = "logo.png", width = "300px"),
-      p(),
+      
+     
       p("The source code can be found on ", tags$a(href = 'https://github.com/lboro-rdm/ArtOfScience.git', "GitHub")),
       p("Copyright:"),
       tags$ul(
@@ -92,7 +99,14 @@ tabPanel(
         tags$li("Code copyright: Lara Skelly, MIT")
       ),
       p("The citation for this app is:"),
-      p("Skelly, Lara; Berry-Frith, Joanne. (2024). Art of Science: an interactive exhibition. Loughborough University. Online resource. ", tags$a(href = 'https://doi.org/10.17028/rd.lboro.26901427', "https://doi.org/10.17028/rd.lboro.26901427"))
+      tags$ul(
+        tags$li("Skelly, Lara; Berry-Frith, Joanne. (2024). Art of Science: an interactive exhibition. Loughborough University. Online resource. ", tags$a(href = 'https://doi.org/10.17028/rd.lboro.26901427', "https://doi.org/10.17028/rd.lboro.26901427"))
+      ),
+      p(),
+      p("Created by Lara Skelly, Loughborough University. Funding was received from Arts Council England under the ", tags$a(href = 'https://www.artscouncil.org.uk/dycp', "Develop Your Creative Practice scheme")),
+      p(),
+      tags$img(src = "logo.png", width = "300px"),
+      p(),
     )
   )
 )
