@@ -26,6 +26,30 @@ function(input, output, session) {
                                     image_5 = image_5,
                                     download_started = FALSE)
   
+  observe({
+    updateNumericInput(session, "rotateValue", value = input$rotate)
+  })
+  
+  observe({
+    updateNumericInput(session, "blurValue", value = input$blur)
+  })
+  
+  observe({
+    updateNumericInput(session, "implodeValue", value = input$implode)
+  })
+  
+  observeEvent(input$rotateValue, {
+    updateSliderInput(session, "rotate", value = input$rotateValue)
+  })
+  
+  observeEvent(input$blurValue, {
+    updateSliderInput(session, "blur", value = input$blurValue)
+  })
+  
+  observeEvent(input$implodeValue, {
+    updateSliderInput(session, "implode", value = input$implodeValue)
+  })
+  
   modify_image <- reactive({
     
     image_modified <- images_original[[input$image_viewer_tab_id]] %>%

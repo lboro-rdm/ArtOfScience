@@ -1,6 +1,8 @@
-navbarPage("Art-Science Interplay", 
+navbarPage("Art-Science Interplay",
+           tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")),
            tabPanel("Artist statement", 
                     fluidPage(
+                              h1("Artist statement"),
                               p("I have been working as an artist for over thirty years. I am fascinated by light, colour, lasers, technology and science. My initial curiosity in how artists can work with scientists was piqued in 1998 when I became aware of the SciArt scheme. The ethos of the SciArt scheme encouraged me, as an artist, to seek out Life Scientists to collaborate with because the methods we employ to create images are connected. We both use laser technology (I make laser-cut lightboxes), which requires knowledge of light, optics, and computer visualisation methods and I am fascinated by how I can use scientific image data innovatively. As a result, since 2010, a central part of my practice has involved contributing to scientific research projects as one of the research team."),
                                 p("I identified a gap in knowledge while working with scientists in labs. There was a lack of understanding between the two disciplines of approaches to imaging and its potential. I wanted to discover if and how an artist-researcher can contribute to new methods of interdisciplinary approaches in advanced imaging and microscopy through collaborative practice. Over the last ten years I have collaborated with Advanced imaging and Microscopy specialists, working with a network of internationally renowned core imaging laboratories in the field of Life Science. My aim is to dismantle silo mentalities so that artist-researchers can collaborate with scientists to create new representations, insights and behavioural change. I implemented a four-stage framework and protocol underpinned by the inclusion of play. Each element helped me negotiate and interpret art and science collaboration in new ways by extending art and scientific methods of visualisation. This led to non-standard representations, technological advancements, and better intellectual and visualisation skills, hence enhancing practice-based research through collaboration. Each element helped me negotiate and interpret art and science collaboration in new ways by extending art and scientific methods of visualisation. I advanced three methods of production: an introspective, digital drawing method using limited tools; data montages where data and documentary footage are explored; and experimental moving image work, integrating documentary film footage and sound."),
                               div(
@@ -10,25 +12,48 @@ navbarPage("Art-Science Interplay",
 )),
            tabPanel(
              "Exhibition",
+             h1("Exhibition"),
              fluidPage(HTML("Enjoy playing scientist, by changing the sliders on the left and seeing the images in different rotation, focus and implosion.<p></p>"),
                sidebarLayout(
                  sidebarPanel(
+                   # Slider for Rotate
                    sliderInput("rotate",
                                label = "Rotate",
                                min = 0,
                                max = 360,
                                value = 0),
+                   numericInput("rotateValue", 
+                                label = "Rotate Value", 
+                                value = 0, 
+                                min = 0, 
+                                max = 360),
+                   
+                   # Slider for Blur
                    sliderInput("blur",
                                label = "Blur",
                                min = 0,
                                max = 20,
                                value = 0),
+                   numericInput("blurValue", 
+                                label = "Blur Value", 
+                                value = 0, 
+                                min = 0, 
+                                max = 20),
+                   
+                   # Slider for Implode
                    sliderInput("implode",
                                label = "Implode",
                                min = -1,
                                max = 1,
                                value = 0,
                                step = 0.01),
+                   numericInput("implodeValue", 
+                                label = "Implode Value", 
+                                value = 0, 
+                                min = -1, 
+                                max = 1, 
+                                step = 0.01),
+                   
                    actionButton("update_chart",
                                 label = "Update image")
                  ),
@@ -69,6 +94,7 @@ navbarPage("Art-Science Interplay",
 tabPanel(
   "About this virtual exhibition",
   fluidPage(
+      h1("About this Exhibition"),
       p("This virtual exhibition seeks to showcase qualitative material in an interactive way. It was created in R, with the following packages:"),
       tags$ul(
         tags$li(HTML("Attali D, Sali A (2024). <i>shinycssloaders: Add Loading Animations to a 'shiny' Output While It's Recalculating</i>. R package version 1.1.0, "), 

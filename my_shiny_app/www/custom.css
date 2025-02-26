@@ -1,0 +1,135 @@
+/* Ensure navbar title does not appear as a hyperlink */
+.navbar-brand {
+    pointer-events: none;  /* Disables click behavior */
+    text-decoration: none !important;  /* Removes hyperlink styling */
+    color: #ffffff !important;  /* Ensures text color remains readable */
+    cursor: default;  /* Changes cursor back to normal */
+    font-weight: bold;
+    background: transparent !important;
+    padding: 10px 15px; /* Adjust spacing */
+}
+
+/* Optional: Make sure navbar text is readable */
+.navbar-default .navbar-brand {
+    color: #ffffff !important; /* White text for contrast */
+}
+
+/* Change navbar background color and text color */
+.navbar-default {
+    background-color: #333; /* Dark background */
+    border-color: #222; /* Slightly darker border */
+}
+
+/* Change the text color in the navbar */
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff !important; /* White text for better contrast */
+    font-weight: bold;
+}
+
+/* Change navbar hover effects */
+.navbar-default .navbar-nav > li > a:hover {
+    color: #ffcc00 !important; /* Yellow hover text */
+    background-color: #444 !important; /* Slightly lighter background */
+}
+
+/* Change active tab color */
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+    background-color: #ffcc00 !important; /* Highlight active tab */
+    color: #000 !important; /* Dark text for readability */
+    font-weight: bold;
+}
+
+/* Ensure good contrast for main content */
+body {
+    background-color: #f8f9fa; /* Light grey background for contrast */
+    color: #333333; /* Darker text for readability */
+}
+
+/* Ensure links are readable */
+a {
+    color: #873600 !important; /* Use a brighter orange for better contrast */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #641e16 !important; /* White on hover for higher visibility */
+    text-decoration: underline; /* Maintain underline effect */
+}
+
+
+/* Style for h1 headers */
+h1 {
+    color: #222222;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Ensure links are readable */
+a {
+    color: #873600 !important;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Right-align signature in artist statement */
+.text-right {
+    text-align: right;
+}
+
+/* Slider styles */
+input[type="range"].form-control {
+    -webkit-appearance: none; /* Removes default styling */
+    width: 100%; /* Full width */
+    height: 4px; /* Height of the track */
+    background: #ddd; /* Track color */
+    border-radius: 5px; /* Rounded edges */
+    outline: none; /* Removes outline */
+}
+
+/* Style for the slider thumb */
+input[type="range"].form-control::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Removes default styling */
+    appearance: none; /* Removes default styling */
+    width: 16px; /* Thumb width */
+    height: 16px; /* Thumb height */
+    border-radius: 50%; /* Rounded thumb */
+    background: #ffcc00; /* Thumb color */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Style for the thumb on focus */
+input[type="range"].form-control:focus::-webkit-slider-thumb {
+    background: #ff9900 !important; /* Change thumb color on focus */
+}
+
+/* Style for the track on focus */
+input[type="range"].form-control:focus {
+    background: #bbb; /* Change track color on focus */
+}
+
+/* Firefox styles */
+input[type="range"].form-control::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffcc00;
+    cursor: pointer;
+}
+
+/* Style for the thumb on focus in Firefox */
+input[type="range"].form-control:focus::-moz-range-thumb {
+    background: #ff9900 !important; /* Change thumb color on focus */
+}
+
+/* Style for the track in Firefox */
+input[type="range"].form-control::-moz-range-track {
+    background: #ddd; /* Track color */
+    height: 4px; /* Height of the track */
+    border-radius: 5px; /* Rounded edges */
+}
