@@ -130,6 +130,8 @@ tags$html(lang = "en",
                            tags$li("Skelly, Lara; Berry-Frith, Joanne. (2024). Art of Science: an interactive exhibition. Loughborough University. Online resource. ", tags$a(href = 'https://doi.org/10.17028/rd.lboro.26901427', "https://doi.org/10.17028/rd.lboro.26901427"))
                          ),
                          p(),
+                         p("This webapp does not use cookies or store any data on your device."),
+                         p(),
                          p("Created by Lara Skelly, Loughborough University. Funding was received from Arts Council England under the ", tags$a(href = 'https://www.artscouncil.org.uk/dycp', "Develop Your Creative Practice scheme")),
                          p(),
                          tags$img(src = "logo.png", width = "300px", alt = "Arts Council England logo"),
